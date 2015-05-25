@@ -23,6 +23,7 @@ grails.project.dependency.resolution = {
     repositories {
         grailsCentral()
         grailsPlugins()
+        mavenLocal()
         mavenCentral()
     }
 
@@ -31,7 +32,7 @@ grails.project.dependency.resolution = {
             runtime ":spud-core:0.6.1"
             runtime ":spud-permalinks:0.6.0"
 
-            runtime(':hibernate4:4.3.5.4') {
+            runtime(':mongodb:3.0.3') {
                 export = false
             }
         }

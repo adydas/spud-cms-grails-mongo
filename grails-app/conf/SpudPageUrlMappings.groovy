@@ -1,5 +1,6 @@
 import spud.cms.*
-import org.hibernate.FetchMode
+
+
 class SpudPageUrlMappings {
 
 	static mappings = { ctx ->
@@ -7,9 +8,8 @@ class SpudPageUrlMappings {
 		def defaultSpudPage = grailsApplication?.config?.spud?.cms?.defaultPage ?: 'home'
 
 		def FORBIDDEN = [
-			'plugins',
+//			'plugins',
 			'WEB-INF',
-			'assets',
 			'console',
 			'is-tomcat-running',
 			'spud/admin'
@@ -40,11 +40,15 @@ class SpudPageUrlMappings {
 
 					def siteId = org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequest.lookup().getAttribute('spudSiteId',0)
 					def urlName = id ?: defaultSpudPage
-					def page = SpudPage.withCriteria(readOnly:true, uniqueResult:true, cache:true) {
-						eq('siteId',siteId)
-						eq('urlName', urlName)
-						fetchMode 'partials', FetchMode.JOIN
-					}
+
+                    //MONGO
+                    def page = SpudPage.findBySiteIdAndUrlName(siteId, urlName)
+
+//                    def page = SpudPage.withCriteria(readOnly:true, uniqueResult:true, cache:true) {
+//						eq('siteId',siteId)
+//						eq('urlName', urlName)
+//						fetchMode 'partials', FetchMode.JOIN
+//					}
 					if(!page) {
 						return false
 					} else {

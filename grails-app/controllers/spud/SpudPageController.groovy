@@ -3,7 +3,6 @@ package spud
 import spud.core.*
 import spud.cms.*
 import spud.permalinks.*
-import org.hibernate.FetchMode
 import grails.plugin.cache.CacheEvict
 import grails.plugin.cache.Cacheable
 import grails.transaction.Transactional
@@ -27,11 +26,15 @@ class SpudPageController {
 		}
 		def page = request.getAttribute('spudPage')
 		if(!page) {
-			page = SpudPage.withCriteria(readOnly:true, uniqueResult:true, cache:true) {
-				eq('siteId',siteId)
-				eq('urlName', urlName)
-				fetchMode 'partials', FetchMode.JOIN
-			}
+
+            //MONGO
+            page = SpudPage.findBySiteIdAndUrlName(siteId, urlName)
+
+//			page = SpudPage.withCriteria(readOnly:true, uniqueResult:true, cache:true) {
+//				eq('siteId',siteId)
+//				eq('urlName', urlName)
+//				fetchMode 'partials', FetchMode.JOIN
+//			}
 		}
 
 		if(!page) {

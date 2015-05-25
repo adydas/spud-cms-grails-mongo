@@ -1,6 +1,5 @@
-
 package spud.cms
-import org.hibernate.FetchMode
+
 class SpudCmsTagLib {
   static defaultEncodeAs = 'html'
 	static encodeAsForTags = [menu: 'raw', pages: 'raw', pageLink: 'raw', snippet: 'raw', applyLayout: 'raw']
